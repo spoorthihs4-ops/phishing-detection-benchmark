@@ -8,7 +8,7 @@ working/
 *.safetensors
 checkpoints/
 runs/
-deployment/deploy_config.json
+deploy_config.json
 .ipynb_checkpoints/
 __pycache__/
 *.pyc

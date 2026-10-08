@@ -26,7 +26,7 @@ How good are phishing detectors **really**, once data leakage is removed, select
 
 ## Methodology
 
-![Methodology flowchart](reports/figures/methodology_flowchart.png)
+![Methodology flowchart](methodology_flowchart.png)
 
 **[Explore the interactive methodology](https://spoorthihs4-ops.github.io/phishing-detection-benchmark/)** – click any stage to see what it does, why it matters, the result it produced and the techniques behind it.
 
@@ -77,8 +77,8 @@ flowchart TB
 The two Transformers are statistically tied (paired bootstrap p = 0.50). The model is chosen on **validation** F1, so DistilBERT's fractionally higher test score plays no part in selection.
 
 <p align="center">
-  <img src="reports/figures/bootstrap_ci.png" width="48%" alt="Bootstrap confidence intervals">
-  <img src="reports/figures/latency_benchmark.png" width="48%" alt="Latency benchmark">
+  <img src="bootstrap_ci.png" width="48%" alt="Bootstrap confidence intervals">
+  <img src="latency_benchmark.png" width="48%" alt="Latency benchmark">
 </p>
 
 ### What the stress tests showed
@@ -93,8 +93,8 @@ The two Transformers are statistically tied (paired bootstrap p = 0.50). The mod
 | Cost-aware threshold | 25:1 miss-to-false-alarm cost: validation cost −20.2%, test misses 42 → 23 for 5 extra false alarms |
 
 <p align="center">
-  <img src="reports/figures/adversarial_robustness.png" width="48%" alt="Adversarial robustness">
-  <img src="reports/figures/leave_one_source_out.png" width="48%" alt="Leave-one-source-out generalisation">
+  <img src="adversarial_robustness.png" width="48%" alt="Adversarial robustness">
+  <img src="leave_one_source_out.png" width="48%" alt="Leave-one-source-out generalisation">
 </p>
 
 ### SOC extensions
@@ -109,22 +109,22 @@ The study is split into seven notebooks that keep the executed outputs of the fu
 
 | Notebook | Contents |
 |---|---|
-| [`00_full_pipeline_run_all`](notebooks/00_full_pipeline_run_all.ipynb) | **Everything, top to bottom - run this to reproduce** |
-| [`01_data_eda_and_leakage_safe_split`](notebooks/01_data_eda_and_leakage_safe_split.ipynb) | Data loading, EDA, leakage audit, grouped split, cleaning, feature engineering |
-| [`02_model_development_and_ensembles`](notebooks/02_model_development_and_ensembles.ipynb) | Evaluation harness, baselines, Transformers, LoRA, custom hybrid, ensembles |
-| [`03_statistical_evaluation_calibration_xai`](notebooks/03_statistical_evaluation_calibration_xai.ipynb) | Bootstrap CIs, model selection, error analysis, calibration, thresholds, SHAP, Integrated Gradients |
-| [`04_threat_intelligence_tactics_and_iocs`](notebooks/04_threat_intelligence_tactics_and_iocs.ipynb) | Social-engineering tactic detection and IOC extraction |
-| [`05_ablation_generalisation_robustness`](notebooks/05_ablation_generalisation_robustness.ipynb) | Ablations, leave-one-source-out, source-artefact test, adversarial attacks and defence |
-| [`06_rag_latency_deployment_soc_agent`](notebooks/06_rag_latency_deployment_soc_agent.ipynb) | RAG explanations, latency benchmark, FastAPI/Docker/Streamlit, LangGraph SOC agent |
-| [`07_conclusions_report_dashboard`](notebooks/07_conclusions_report_dashboard.ipynb) | Research-question answer, limitations, HTML report, interactive dashboard |
+| [`00_full_pipeline_run_all`](00_full_pipeline_run_all.ipynb) | **Everything, top to bottom - run this to reproduce** |
+| [`01_data_eda_and_leakage_safe_split`](01_data_eda_and_leakage_safe_split.ipynb) | Data loading, EDA, leakage audit, grouped split, cleaning, feature engineering |
+| [`02_model_development_and_ensembles`](02_model_development_and_ensembles.ipynb) | Evaluation harness, baselines, Transformers, LoRA, custom hybrid, ensembles |
+| [`03_statistical_evaluation_calibration_xai`](03_statistical_evaluation_calibration_xai.ipynb) | Bootstrap CIs, model selection, error analysis, calibration, thresholds, SHAP, Integrated Gradients |
+| [`04_threat_intelligence_tactics_and_iocs`](04_threat_intelligence_tactics_and_iocs.ipynb) | Social-engineering tactic detection and IOC extraction |
+| [`05_ablation_generalisation_robustness`](05_ablation_generalisation_robustness.ipynb) | Ablations, leave-one-source-out, source-artefact test, adversarial attacks and defence |
+| [`06_rag_latency_deployment_soc_agent`](06_rag_latency_deployment_soc_agent.ipynb) | RAG explanations, latency benchmark, FastAPI/Docker/Streamlit, LangGraph SOC agent |
+| [`07_conclusions_report_dashboard`](07_conclusions_report_dashboard.ipynb) | Research-question answer, limitations, HTML report, interactive dashboard |
 
 ## Reproduce
 
-1. Open [`00_full_pipeline_run_all.ipynb`](notebooks/00_full_pipeline_run_all.ipynb) on **Kaggle** with a **GPU T4** accelerator and Internet enabled.
+1. Open [`00_full_pipeline_run_all.ipynb`](00_full_pipeline_run_all.ipynb) on **Kaggle** with a **GPU T4** accelerator and Internet enabled.
 2. Attach the dataset (pre-split `train.csv` / `val.csv` / `test.csv`, or one raw CSV with `text` and `label` columns; see Section 2).
 3. **Run All.** `QUICK_RUN = True` in Section 1 gives a fast smoke test; the full run takes a few hours on a T4 (RoBERTa fine-tuning alone is about 80 minutes).
 
-To try the lightweight API, see [`deployment/`](deployment/).
+To try the lightweight API, see [`DEPLOYMENT.md`](DEPLOYMENT.md).
 
 ## Data
 
@@ -138,15 +138,14 @@ To try the lightweight API, see [`deployment/`](deployment/).
 
 ## Repository structure
 
-```
-phishing-detection-benchmark/
-├── notebooks/            # 00 full pipeline + 01-07 part notebooks (with outputs)
-├── deployment/           # FastAPI app, Dockerfile, Streamlit demo
-├── reports/figures/      # methodology flowchart and key result charts
-├── docs/index.html       # interactive methodology (GitHub Pages)
-├── requirements.txt
-└── README.md
-```
+All files sit in the repository root so they upload and display correctly:
+
+- `00_full_pipeline_run_all.ipynb` – the complete pipeline (run this to reproduce)
+- `01_…` onwards – part notebooks with executed outputs
+- `methodology_flowchart.png` and the result charts shown above
+- `index.html` – interactive methodology page (GitHub Pages)
+- `requirements.txt`, `.gitignore`
+- `app.py`, `streamlit_app.py`, `Dockerfile`, `requirements-api.txt`, `deploy_config.example.json` – reference deployment (see `DEPLOYMENT.md`)
 
 ## Author
 

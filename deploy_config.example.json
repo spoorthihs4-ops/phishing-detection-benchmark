@@ -1,0 +1,4 @@
+{
+  "model": "TFIDF_LogReg",
+  "threshold": 0.5
+}
