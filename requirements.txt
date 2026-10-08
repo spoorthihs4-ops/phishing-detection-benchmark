@@ -1,0 +1,22 @@
+# Research pipeline (notebooks). A Kaggle GPU runtime (Tesla T4) already includes most of these.
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+torch
+transformers
+datasets
+accelerate
+peft
+shap
+captum
+langgraph
+rank_bm25
+langdetect
+anthropic
+fastapi
+uvicorn
+streamlit
+joblib
+ipywidgets

@@ -1,0 +1,17 @@
+# data and generated artefacts (not committed)
+data/
+working/
+*.csv
+*.joblib
+*.pt
+*.bin
+*.safetensors
+checkpoints/
+runs/
+deployment/deploy_config.json
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.env
+.venv/
+.DS_Store
